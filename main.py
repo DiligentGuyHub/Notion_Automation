@@ -42,9 +42,15 @@ def daily_agenda(destination, source):
     current_day = datetime.datetime.today().day
     for row in source_page.collection.get_rows():
         row_date = str(row.Date.start).split("-")
+        row_date = str(row_date).replace("'", "")
+        row_date = str(row_date).replace("]", "")
+        row_date = str(row_date).replace("[", "")
+        row_date = str(row_date).replace(",", "")
+        row_date = str(row_date).split(" ")
         row_day = int(row_date[2])
         if row_day == current_day:
             child = destination_page.children.add_new(TodoBlock, title=str(row.Name + " [" + bold(str(row.Tags[0])) + "]"))
+
 
 
 if __name__ == '__main__':
